@@ -13,6 +13,8 @@ function app(data){
     htmlSelectAuthors(authors)
     htmlSelectCategories(categories)
     htmlAllBook(allData)
+    selectAuthors.addEventListener("change",()=>sortByAuthor());
+    selectCategories.addEventListener("change", ()=>sortByCategories())
 }
 
 function getAuthors(data){
@@ -66,18 +68,47 @@ function getDateFormat(date){
 }
 function htmlAllBook(allbooks){
     let allBooks =allbooks
-
+    
     allBooks.forEach(book => {
-         htmlListBooks.innerHTML += `
-        <div class="card" style="width: 18rem;">
+
+        htmlListBooks.innerHTML += `
+        <div class="card" style="width: 18rem;"
+        data-authors="${book.authors}"
+        data-title="${book.title}"
+        data-categories="${book.categories}"
+        >
         <img class="card-img-top" src="${book.thumbnailUrl}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">${book.title}</h5>
                <p class="card-text"><strong>ISBN</strong>${book.isbn}</p>
+               <p class="card-text"><strong>Date publication</strong>${getDateFormat(book.publishedDate?.dt_txt)}</p>
             </div>
         </div>`
     })
-    // <p class="card-text"><strong>Date publication</strong>${getDateFormat($book.publishedDate.dt_txt)}</p>
+    // 
     // <p class="card-text"><strong>Nbr Pages</strong>${book.pageCount}</p>
 }
 
+function sortByAuthor(){
+    let author = selectAuthors.value
+    let htmlBooks = document.querySelectorAll("[data-authors]")
+    htmlBooks.forEach(book =>{
+        if(!book.dataset.authors.includes(author)){
+            book.style.display = "none"
+        }else{
+            book.style.display = 'inline'
+        }
+    })
+}
+function sortByCategories(){
+    let categories = selectCategories.value
+    let htmlBooks = document.querySelectorAll("[data-categories]")
+    htmlBooks.forEach(book =>{
+        if(!book.dataset.categories.includes(categories)){
+            book.style.display = "none"
+        }else{
+            book.style.display = 'inline'
+            console.log(book.book.dataset.categories)
+        }
+    })
+}
