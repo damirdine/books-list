@@ -68,7 +68,7 @@ function getDateFormat(date){
 }
 function htmlAllBook(allbooks){
     let allBooks =allbooks
-    
+    let defaultThumbmailUrl = "https://p1.storage.canalblog.com/14/48/1145642/91330992_o.png"
     allBooks.forEach(book => {
 
         htmlListBooks.innerHTML += `
@@ -77,7 +77,7 @@ function htmlAllBook(allbooks){
         data-title="${book.title}"
         data-categories="${book.categories}"
         >
-        <img class="card-img-top" src="${book.thumbnailUrl}" alt="Card image cap">
+        <img class="card-img-top" src="${book.thumbnailUrl ? book.thumbnailUrl : defaultThumbmailUrl }" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">${book.title}</h5>
                <p class="card-text"><strong>ISBN</strong>${book.isbn}</p>
