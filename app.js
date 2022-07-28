@@ -1,5 +1,5 @@
 let selectAuthors = document.querySelector('#authors')
-
+let selectCategories = document.querySelector('#categories')
 fetch('books.json')
 .then(res => res.json())
 .then(json => app(json))
@@ -7,7 +7,9 @@ fetch('books.json')
 function app(data){
     let allData = data
     let authors = getAuthors(allData)
-    displaySelectAuthors(authors.sort())
+    let categories = getCategories(allData)
+    displaySelectAuthors(authors)
+    displaySelectCategories(categories)
 }
 
 function getAuthors(data){
@@ -22,14 +24,37 @@ function getAuthors(data){
         }
        })
 
-    });
-    return listAuthors
+    })
+    return listAuthors.sort()
 }
 function displaySelectAuthors(authors){
     let authorsList = authors
     authorsList.forEach(author =>{
         if(author!=""){
             selectAuthors.innerHTML += `<option value="${author}">${author}</option>`
+        }
+    })
+}
+function getCategories(data){
+    let allData = data
+    let listCategories = []
+    allData.forEach(element => {
+        
+       let categories = element.categories
+       categories.forEach(category=>{
+        if(!listCategories.includes(category)){
+            listCategories.push(category)
+        }
+       })
+
+    })
+    return listCategories
+}
+function displaySelectCategories(categories){
+    let categoriesList = categories
+    categoriesList.forEach(category =>{
+        if(category!=""){
+            selectCategories.innerHTML += `<option value="${category}">${category}</option>`
         }
     })
 }
