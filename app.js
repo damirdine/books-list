@@ -1,5 +1,7 @@
 let selectAuthors = document.querySelector('#authors')
 let selectCategories = document.querySelector('#categories')
+let htmlListBooks = document.querySelector('#listBooks')
+
 fetch('books.json')
 .then(res => res.json())
 .then(json => app(json))
@@ -8,8 +10,9 @@ function app(data){
     let allData = data
     let authors = getAuthors(allData)
     let categories = getCategories(allData)
-    displaySelectAuthors(authors)
-    displaySelectCategories(categories)
+    htmlSelectAuthors(authors)
+    htmlSelectCategories(categories)
+    htmlAllBook(allData)
 }
 
 function getAuthors(data){
@@ -27,7 +30,7 @@ function getAuthors(data){
     })
     return listAuthors.sort()
 }
-function displaySelectAuthors(authors){
+function htmlSelectAuthors(authors){
     let authorsList = authors
     authorsList.forEach(author =>{
         if(author!=""){
@@ -50,7 +53,7 @@ function getCategories(data){
     })
     return listCategories
 }
-function displaySelectCategories(categories){
+function htmlSelectCategories(categories){
     let categoriesList = categories
     categoriesList.forEach(category =>{
         if(category!=""){
@@ -58,3 +61,23 @@ function displaySelectCategories(categories){
         }
     })
 }
+function getDateFormat(date){
+    return date
+}
+function htmlAllBook(allbooks){
+    let allBooks =allbooks
+
+    allBooks.forEach(book => {
+         htmlListBooks.innerHTML += `
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="${book.thumbnailUrl}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">${book.title}</h5>
+               <p class="card-text"><strong>ISBN</strong>${book.isbn}</p>
+            </div>
+        </div>`
+    })
+    // <p class="card-text"><strong>Date publication</strong>${getDateFormat($book.publishedDate.dt_txt)}</p>
+    // <p class="card-text"><strong>Nbr Pages</strong>${book.pageCount}</p>
+}
+
