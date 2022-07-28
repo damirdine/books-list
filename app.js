@@ -1,6 +1,7 @@
 let selectAuthors = document.querySelector('#authors')
 let selectCategories = document.querySelector('#categories')
 let htmlListBooks = document.querySelector('#listBooks')
+let optionTemplate = document.querySelector('#optionTemplate')
 
 fetch('books.json')
 .then(res => res.json())
@@ -36,7 +37,11 @@ function htmlSelectAuthors(authors){
     let authorsList = authors
     authorsList.forEach(author =>{
         if(author!=""){
-            selectAuthors.innerHTML += `<option value="${author}">${author}</option>`
+            let newOption = document.importNode(optionTemplate.content,true)
+            newOption.value = author
+            newOption.textContent = author
+            selectAuthors.appendChild(newOption)
+            // selectAuthors.innerHTML += `<option value="${author}">${author}</option>`
         }
     })
 }
@@ -59,7 +64,11 @@ function htmlSelectCategories(categories){
     let categoriesList = categories
     categoriesList.forEach(category =>{
         if(category!=""){
-            selectCategories.innerHTML += `<option value="${category}">${category}</option>`
+            let newOption = document.importNode(optionTemplate.content,true)
+            newOption.value = category
+            newOption.textContent = category
+            selectCategories.appendChild(newOption)
+            // selectCategories.innerHTML += `<option value="${category}">${category}</option>`
         }
     })
 }
