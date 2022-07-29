@@ -11,27 +11,31 @@
     <script src="app.js" defer></script>
     <title>Books</title>
 </head>
-
+<style>
+    .cart-title { 
+        font-weight: bold;
+    }
+</style>
 <body>
     <h1>List Books</h1>
     <div id="app">
+        <template id="optionTemplate">
+            <option value=""></option>
+        </template>
         <select name="authors" id="authors" class="my-3">
             <option value="">----Select author----</option>
-            <template id="optionTemplate">
-                <option value=""></option>
-            </template>
         </select>
         <select name="categories" id="categories" class="mb-3">
             <option value="">----Select category----</option>
         </select>
         <main id="listBooks" class="container d-flex flex-wrap gap-3">
-            <template id="card">
+            <template id="cardTemplate">
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Book title</h5>
-                        <p class="card-text"><strong>ISBN</strong>Book ISBN</p>
-                        <p class="card-text"><strong>Date publication</strong>236326</p>
+                        <p class="card-text"><strong class="isbn">ISBN</strong> </p>
+                        <p class="card-text"><strong class="publishDate">Date publication</strong>236326</p>
                     </div>
                 </div>
             </template>

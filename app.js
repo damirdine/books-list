@@ -37,11 +37,10 @@ function htmlSelectAuthors(authors){
     let authorsList = authors
     authorsList.forEach(author =>{
         if(author!=""){
-            let newOption = document.importNode(optionTemplate.content,true)
-            newOption.value = author
-            newOption.textContent = author
+            let newOption = optionTemplate.content.cloneNode(true)
+            newOption.querySelector('option').value = author
+            newOption.querySelector('option').textContent = author
             selectAuthors.appendChild(newOption)
-            // selectAuthors.innerHTML += `<option value="${author}">${author}</option>`
         }
     })
 }
@@ -64,11 +63,10 @@ function htmlSelectCategories(categories){
     let categoriesList = categories
     categoriesList.forEach(category =>{
         if(category!=""){
-            let newOption = document.importNode(optionTemplate.content,true)
-            newOption.value = category
-            newOption.textContent = category
+            let newOption = optionTemplate.content.cloneNode(true)
+            newOption.querySelector('option').value = category
+            newOption.querySelector('option').textContent = category
             selectCategories.appendChild(newOption)
-            // selectCategories.innerHTML += `<option value="${category}">${category}</option>`
         }
     })
 }
@@ -79,20 +77,26 @@ function htmlAllBook(allbooks){
     let allBooks =allbooks
     let defaultThumbmailUrl = "https://p1.storage.canalblog.com/14/48/1145642/91330992_o.png"
     allBooks.forEach(book => {
-
-        htmlListBooks.innerHTML += `
-        <div class="card" style="width: 18rem;"
-        data-authors="${book.authors}"
-        data-title="${book.title}"
-        data-categories="${book.categories}"
-        >
-        <img class="card-img-top" src="${book.thumbnailUrl ? book.thumbnailUrl : defaultThumbmailUrl }" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">${book.title}</h5>
-               <p class="card-text"><strong>ISBN</strong>${book.isbn}</p>
-               <p class="card-text"><strong>Date publication</strong>${getDateFormat(book.publishedDate?.dt_txt)}</p>
-            </div>
-        </div>`
+        let htmlBookTemplate =  document.querySelector('#cardTemplate')
+        let newBook = htmlBookTemplate.content.cloneNode(true)
+        newBook.querySelector('.card-img-top').src = book.thumbnailUrl ? book.thumbnailUrl : defaultThumbmailUrl
+        newBook.querySelector('.card-title').textContent = book.title
+        newBook.querySelectorAll('.card-text')[0].textContent += book.isbn
+        book.publishedDate?.dt_txt ? (newBook.querySelectorAll('.card-text')[1].textContent=book.publishedDate.dt_txt) : ''
+        htmlListBooks.appendChild(newBook)
+        // htmlListBooks.innerHTML += `
+        // <div class="card" style="width: 18rem;"
+        // data-authors="${book.authors}"
+        // data-title="${book.title}"
+        // data-categories="${book.categories}"
+        // >
+        // <img class="card-img-top" src="${book.thumbnailUrl ? book.thumbnailUrl : defaultThumbmailUrl }" alt="Card image cap">
+        //     <div class="card-body">
+        //         <h5 class="card-title">${book.title}</h5>
+        //        <p class="card-text"><strong>ISBN</strong>${book.isbn}</p>
+        //        <p class="card-text"><strong>Date publication</strong>${getDateFormat(book.publishedDate?.dt_txt)}</p>
+        //     </div>
+        // </div>`
     })
     // 
     // <p class="card-text"><strong>Nbr Pages</strong>${book.pageCount}</p>
