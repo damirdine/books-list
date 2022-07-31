@@ -11,11 +11,7 @@
     <script src="app.js" defer></script>
     <title>Books</title>
 </head>
-<style>
-    .cart-title { 
-        font-weight: bold;
-    }
-</style>
+
 <body>
     <h1>List Books</h1>
     <div id="app">
@@ -31,11 +27,13 @@
         <main id="listBooks" class="container d-flex flex-wrap gap-3">
             <template id="cardTemplate">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="" alt="Card image cap">
+                    <img class="card-img-top text-bold" src="" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Book title</h5>
-                        <p class="card-text"><strong class="isbn">ISBN</strong> </p>
-                        <p class="card-text"><strong class="publishDate">Date publication</strong>236326</p>
+                        <p class="card-text"><strong>ISBN</strong> <span class="isbn"></span></p>
+                        <p class="card-text date"><strong>Date publication</strong> <span class="pubDate"></span></p>
+                        <p class="card-text page"><strong>Nombre de pages</strong> <span class="pageNbr"></span></p>
+                        <p class="card-text description"><strong>Description</strong> <span class="desc"></span></p>
                     </div>
                 </div>
             </template>

@@ -79,31 +79,29 @@ function htmlAllBook(allbooks){
     allBooks.forEach(book => {
         let htmlBookTemplate =  document.querySelector('#cardTemplate')
         let newBook = htmlBookTemplate.content.cloneNode(true)
+        newBook.querySelector('.card').dataset.authors = book.authors
+        newBook.querySelector('.card').dataset.categories = book.categories
         newBook.querySelector('.card-img-top').src = book.thumbnailUrl ? book.thumbnailUrl : defaultThumbmailUrl
         newBook.querySelector('.card-title').textContent = book.title
-        newBook.querySelectorAll('.card-text')[0].textContent += book.isbn
-        book.publishedDate?.dt_txt ? (newBook.querySelectorAll('.card-text')[1].textContent=book.publishedDate.dt_txt) : ''
+        newBook.querySelector('.isbn').textContent = book.isbn
+        if(book.publishedDate?.dt_txt){
+            newBook.querySelector('.pubDate').textContent = getDateFormat(book.publishedDate.dt_txt)
+        }else{ newBook.querySelector('.date').remove()}
+
+        if(book.pageCount){
+            newBook.querySelector('.pageNbr').textContent = book.pageCount
+        }else{ newBook.querySelector('.page').remove()}
+
+        if(book.shortDescription){
+            newBook.querySelector('.desc').textContent = book.shortDescription
+        }else{ newBook.querySelector('.description').remove()}
+
         htmlListBooks.appendChild(newBook)
-        // htmlListBooks.innerHTML += `
-        // <div class="card" style="width: 18rem;"
-        // data-authors="${book.authors}"
-        // data-title="${book.title}"
-        // data-categories="${book.categories}"
-        // >
-        // <img class="card-img-top" src="${book.thumbnailUrl ? book.thumbnailUrl : defaultThumbmailUrl }" alt="Card image cap">
-        //     <div class="card-body">
-        //         <h5 class="card-title">${book.title}</h5>
-        //        <p class="card-text"><strong>ISBN</strong>${book.isbn}</p>
-        //        <p class="card-text"><strong>Date publication</strong>${getDateFormat(book.publishedDate?.dt_txt)}</p>
-        //     </div>
-        // </div>`
     })
-    // 
-    // <p class="card-text"><strong>Nbr Pages</strong>${book.pageCount}</p>
 }
 
 function sortByAuthor(){
-    let author = selectAuthors.value
+    let author = selectAuthors.valueS
     let htmlBooks = document.querySelectorAll("[data-authors]")
     htmlBooks.forEach(book =>{
         if(!book.dataset.authors.includes(author)){
