@@ -71,7 +71,8 @@ function htmlSelectCategories(categories){
     })
 }
 function getDateFormat(date){
-    return date
+    let dtFormatFR = new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    return dtFormatFR.format(new Date(date))
 }
 function htmlAllBook(allbooks){
     let allBooks =allbooks
@@ -101,7 +102,7 @@ function htmlAllBook(allbooks){
 }
 
 function sortByAuthor(){
-    let author = selectAuthors.valueS
+    let author = selectAuthors.value
     let htmlBooks = document.querySelectorAll("[data-authors]")
     htmlBooks.forEach(book =>{
         if(!book.dataset.authors.includes(author)){
